@@ -13,9 +13,10 @@ router.get("/:user", (req, res) => {
     bearer_token: process.env.TWITTER_BEARER_TOKEN
   });
 
+  console.log(req.params);
   const params = {
-    screen_name: "dan_abramov",
-    include_rts: "true",
+    screen_name: `${req.params.user}`,
+    include_rts: "false",
     count: "200",
     trim_user: "true",
     tweet_mode: "extended"

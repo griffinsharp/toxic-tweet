@@ -1,11 +1,10 @@
 import React from 'react';
-import Home from './Home';
+import TweetIndex from './components/TweetIndex';
 
 function App() {
   return (
     <div className="App">
-      Hello
-     <Home> </Home>
+     <TweetIndex/>
     </div>
   );
 }
