@@ -6,14 +6,11 @@ router.get("/test", (req, res) => {
   res.json({ msg: "This is the tweet route" });
 });
 
-
 router.get("/:user", (req, res) => {
-
   var client = new Twitter({
     bearer_token: process.env.TWITTER_BEARER_TOKEN
   });
 
-  console.log(req.params);
   const params = {
     screen_name: `${req.params.user}`,
     include_rts: "false",
@@ -27,9 +24,7 @@ router.get("/:user", (req, res) => {
   client
     .get(path, params)
     .then(tweets => res.json(tweets))
-    .catch(err =>
-      res.status(404).json({ notweetfound: "No tweet found" })
-    );
+    .catch(err => res.status(404).json({ noUserFound: "User Not Found. Please try another." }));
 });
 
 module.exports = router;

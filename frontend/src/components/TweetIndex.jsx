@@ -8,9 +8,11 @@ class TweetIndex extends React.Component {
       tweets: [],
       tweetText: [],
       searchOption: "Tweet",
-      searchInput: ""
+      searchInput: "",
+      errors: {}
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleErrors = this.handleErrors.bind(this);
   }
 
   getText(tweet) {
@@ -18,14 +20,7 @@ class TweetIndex extends React.Component {
     this.setState({ tweetText: arrText });
   }
 
-  componentDidMount() {
-    // getUserTweets("gsharpdev")
-    //   .then(tweet => {
-    //     this.setState({ tweets: tweet.data });
-    //     return this.state.tweets;
-    //   })
-    //   .then(tweet => this.getText(tweet));
-  }
+  componentDidMount() {}
 
   update(field) {
     return e => this.setState({ [field]: e.currentTarget.value });
@@ -38,7 +33,18 @@ class TweetIndex extends React.Component {
         this.setState({ tweets: tweet.data });
         return this.state.tweets;
       })
-      .then(tweet => this.getText(tweet));
+      .then(tweet => this.getText(tweet))
+      .catch(err => {
+        this.setState({ errors: err.response.data });
+      });
+  }
+
+  handleErrors() {
+    let errorsArr = Object.values(this.state.errors);
+    if (errorsArr.length > 0) {
+      return (errorsArr.map((error, i) => (
+        <div key={`error-${i}`}>{error}</div>
+      )))}
   }
 
   render() {
@@ -53,8 +59,9 @@ class TweetIndex extends React.Component {
             value={this.state.searchInput}
             onChange={this.update("searchInput")}
           />
-          <input type="submit" value="search"/>
+          <input type="submit" value="search" />
         </form>
+        {this.handleErrors()}
         {this.state.tweetText.map((ele, i) => (
           <div key={`tweet-${i}`}>{ele}</div>
         ))}
