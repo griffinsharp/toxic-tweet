@@ -1,6 +1,5 @@
 import { getUserTweets } from "../util/tweet_api_utl";
 import React from "react";
-import * as toxicity from "@tensorflow-models/toxicity";
 
 class TweetIndex extends React.Component {
   constructor(props) {
@@ -13,7 +12,6 @@ class TweetIndex extends React.Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleErrors = this.handleErrors.bind(this);
-
   }
 
   componentDidMount() {}
@@ -32,8 +30,9 @@ class TweetIndex extends React.Component {
     getUserTweets(this.state.searchInput)
       .then(tweet => {
         let tweetObj = Object.assign({}, this.state.tweetText, tweet.data);
-        this.setState({ tweetText: tweetObj}, () => console.log(this.state.tweetText));
-        
+        this.setState({ tweetText: tweetObj }, () =>
+          console.log(this.state.tweetText)
+        );
       })
       .catch(err => {
         if (!!err.response) this.setState({ errors: err.response.data });

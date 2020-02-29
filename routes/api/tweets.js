@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 var Twitter = require("twitter");
 require("@tensorflow/tfjs-node");
-
 const toxicity = require("@tensorflow-models/toxicity");
 
 router.get("/test", (req, res) => {
@@ -26,34 +25,35 @@ router.get("/:user", (req, res) => {
 
   client
     .get(path, params)
-    .then((tweet) => {
+    .then(tweet => {
       let resultArr = Object.values(tweet).map(ele => ele.full_text);
       return tweetyBoi(resultArr);
     })
     .then(tweets => res.json(tweets))
-    .catch(err => res.status(404).json({ noUserFound: "User Not Found. Please try another." }));
+    .catch(err =>
+      res
+        .status(404)
+        .json({ noUserFound: "User Not Found. Please try another." })
+    );
 });
 
 function tweetyBoi(tweetsArr) {
   const threshold = 0.8;
 
-    return toxicity.load(threshold).then(model => {
-      const sentences = tweetsArr;
+  return toxicity.load(threshold).then(model => {
+    const sentences = tweetsArr;
 
-      return model.classify(sentences).then(predictions => {
-        let resultsArr = predictions[predictions.length - 1].results;
-        let resultsObj = {};
-        let results2 = resultsArr.map(ele => ele.match);
-        sentences.forEach((tweet, index) => {
-          resultsObj[tweet] = results2[index];
-        });
-
-       return resultsObj;
-      
+    return model.classify(sentences).then(predictions => {
+      let resultsArr = predictions[predictions.length - 1].results;
+      let resultsObj = {};
+      let results2 = resultsArr.map(ele => ele.match);
+      sentences.forEach((tweet, index) => {
+        resultsObj[tweet] = results2[index];
       });
+
+      return resultsObj;
     });
+  });
 }
-
-
 
 module.exports = router;
