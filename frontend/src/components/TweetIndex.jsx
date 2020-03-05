@@ -50,6 +50,7 @@ class TweetIndex extends React.Component {
 
     let keys = Object.keys(this.state.tweetText);
     let values = Array.from(Object.values(this.state.tweetText));
+    console.log(values);
 
     return (
       <div>
@@ -67,8 +68,12 @@ class TweetIndex extends React.Component {
         {this.handleErrors()}
         {keys.map((key, i) => (
           <div key={`outer-${i}`}>
-            <div key={`tweet-${i}-key`}>{key}</div>
-            <div key={`tweet-${i}-value`}>{values[i]}</div>
+            <div className={i} key={`tweet-${i}-key`}>
+              {key}
+            </div>
+            <div className={i} key={`tweet-${i}-value`}>
+              {`${values[0]}`}
+            </div>
           </div>
         ))}
       </div>
