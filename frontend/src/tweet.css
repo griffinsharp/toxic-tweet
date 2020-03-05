@@ -1,3 +1,62 @@
+/* --- APP --- */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    margin: 50px 120px;
+    border: 1px solid black;
+}
+
+/* --- FORM --- */
+
+/* container for form inclyding the header */
+.form-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* header */
+.header {
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+/* form itself */
+.tweet-form {
+    border: #b7b7b7 solid 1px;
+    display: flex;
+}
+
+/* all form children */
+.tweet-form > * {
+    padding: 10px;
+}
+
+/* form child, @/# box */
+.at-hashtag {
+    border-right: 1px #b7b7b7 solid;
+}
+
+/* form child, input button */
+.input-btn {
+    border-left: 1px #b7b7b7 solid;
+}
+
+/* --- END FORM --- */
+.lower-container {
+
+}
+
+/* */
+.outer-header-container {
+  display: flex;
+  align-content: center;
+  width: 50%;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
 .outer-tweet-container {
   display: flex;
   align-content: center;
@@ -6,10 +65,3 @@
   margin: 0 auto;
 }
 
-.outer-header-container {
-  display: flex;
-  align-content: center;
-  width: 50%;
-  justify-content: space-between;
-  margin: 0 auto;
-}

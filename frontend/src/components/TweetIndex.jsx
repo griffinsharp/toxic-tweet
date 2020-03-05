@@ -7,7 +7,7 @@ class TweetIndex extends React.Component {
     super(props);
     this.state = {
       tweetText: {},
-      searchOption: "Tweet",
+      searchOption: "@",
       searchInput: "",
       errors: {}
     };
@@ -51,33 +51,41 @@ class TweetIndex extends React.Component {
     let keys = Object.keys(this.state.tweetText);
 
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="userInput">{this.state.searchOption}</label>
-          <input
-            id="userInput"
-            type="text"
-            placeholder="Enter a twitter @user"
-            value={this.state.searchInput}
-            onChange={this.update("searchInput")}
-          />
-          <input type="submit" value="search" />
-        </form>
-        <div className="outer-header-container">
-          <div>Tweet</div>
-          <div>Model's Predicted Toxicity</div>
+      <div className="app-container">
+        <div className="form-container">
+          <div className="header">Tweet Toxicity Calculator</div>
+          <form className="tweet-form" onSubmit={this.handleSubmit}>
+            <label className="at-hashtag" htmlFor="userInput">
+              {this.state.searchOption}
+            </label>
+            <input
+              id="userInput"
+              type="text"
+              placeholder="Enter a twitter @user"
+              value={this.state.searchInput}
+              onChange={this.update("searchInput")}
+            />
+            <input className="input-btn" type="submit" value="search" />
+          </form>
         </div>
-        {this.handleErrors()}
-        {keys.map((key, i) => (
-          <div className="outer-tweet-container" key={`outer-${i}`}>
-            <div className={i} key={`tweet-${i}-key`}>
-              {key}
-            </div>
-            <div className={i} key={`tweet-${i}-value`}>
-              {`${this.state.tweetText[key]}`}
-            </div>
+
+        <div className="lower-container">
+          <div className="outer-header-container">
+            <div>Tweet</div>
+            <div>Model's Predicted Toxicity</div>
           </div>
-        ))}
+          {this.handleErrors()}
+          {keys.map((key, i) => (
+            <div className="outer-tweet-container" key={`outer-${i}`}>
+              <div className={i} key={`tweet-${i}-key`}>
+                {key}
+              </div>
+              <div className={i} key={`tweet-${i}-value`}>
+                {`${this.state.tweetText[key]}`}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
