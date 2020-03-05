@@ -1,5 +1,6 @@
 import { getUserTweets } from "../util/tweet_api_utl";
 import React from "react";
+import "../tweet.css";
 
 class TweetIndex extends React.Component {
   constructor(props) {
@@ -47,10 +48,7 @@ class TweetIndex extends React.Component {
   }
 
   render() {
-
     let keys = Object.keys(this.state.tweetText);
-    let values = Array.from(Object.values(this.state.tweetText));
-    console.log(values);
 
     return (
       <div>
@@ -65,14 +63,18 @@ class TweetIndex extends React.Component {
           />
           <input type="submit" value="search" />
         </form>
+        <div className="outer-header-container">
+          <div>Tweet</div>
+          <div>Model's Predicted Toxicity</div>
+        </div>
         {this.handleErrors()}
         {keys.map((key, i) => (
-          <div key={`outer-${i}`}>
+          <div className="outer-tweet-container" key={`outer-${i}`}>
             <div className={i} key={`tweet-${i}-key`}>
               {key}
             </div>
             <div className={i} key={`tweet-${i}-value`}>
-              {`${values[0]}`}
+              {`${this.state.tweetText[key]}`}
             </div>
           </div>
         ))}

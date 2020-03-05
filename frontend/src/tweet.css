@@ -1,0 +1,15 @@
+.outer-tweet-container {
+  display: flex;
+  align-content: center;
+  width: 50%;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+.outer-header-container {
+  display: flex;
+  align-content: center;
+  width: 50%;
+  justify-content: space-between;
+  margin: 0 auto;
+}
