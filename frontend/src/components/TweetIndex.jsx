@@ -47,6 +47,10 @@ class TweetIndex extends React.Component {
   }
 
   render() {
+
+    let keys = Object.keys(this.state.tweetText);
+    let values = Array.from(Object.values(this.state.tweetText));
+
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -61,9 +65,12 @@ class TweetIndex extends React.Component {
           <input type="submit" value="search" />
         </form>
         {this.handleErrors()}
-        {/* {this.state.tweetText.map((ele, i) => (
-          <div key={`tweet-${i}`}>{ele}</div>
-        ))} */}
+        {keys.map((key, i) => (
+          <div key={`outer-${i}`}>
+            <div key={`tweet-${i}-key`}>{key}</div>
+            <div key={`tweet-${i}-value`}>{values[i]}</div>
+          </div>
+        ))}
       </div>
     );
   }
