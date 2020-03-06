@@ -9,10 +9,12 @@ class TweetIndex extends React.Component {
       tweetText: {},
       searchOption: "@",
       searchInput: "",
+      placeHolder: "Enter a Twitter Handle.",
       errors: {}
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleErrors = this.handleErrors.bind(this);
+    this.flipSym = this.flipSym.bind(this);
   }
 
   componentDidMount() {}
@@ -21,13 +23,27 @@ class TweetIndex extends React.Component {
     return e => this.setState({ [field]: e.currentTarget.value });
   }
 
+  flipSym() {
+    if (this.state.searchOption === "@") {
+      this.setState({searchOption: "#"});
+      this.setState({placeHolder: "Enter a Twitter Hashtag."});
+    } else if (this.state.searchOption === "#") {
+      this.setState({ searchOption: "@" });
+      this.setState({ placeHolder: "Enter a Twitter Handle." });
+    } 
+  }
+
   handleSubmit(e) {
+    e.preventDefault();
+
     // clear results
     this.setState({ errors: {} });
     this.setState({ tweets: [] });
     this.setState({ tweetText: [] });
 
-    e.preventDefault();
+    // don't allow empty inputs
+    if (this.state.searchInput === "") return;
+
     getUserTweets(this.state.searchInput)
       .then(tweet => {
         let tweetObj = Object.assign({}, this.state.tweetText, tweet.data);
@@ -55,32 +71,32 @@ class TweetIndex extends React.Component {
         <div className="form-container">
           <div className="header">Tweet Toxicity Calculator</div>
           <form className="tweet-form" onSubmit={this.handleSubmit}>
-            <label className="at-hashtag" htmlFor="userInput">
+            <label onClick={this.flipSym} className="at-hashtag" htmlFor="userInput">
               {this.state.searchOption}
             </label>
             <input
               id="userInput"
               type="text"
-              placeholder="Enter a twitter @user"
+              placeholder={this.state.placeHolder}
               value={this.state.searchInput}
               onChange={this.update("searchInput")}
             />
-            <input className="input-btn" type="submit" value="search" />
+            <input className="input-btn" type="submit" value="Calculate" />
           </form>
         </div>
 
         <div className="lower-container">
-          <div className="outer-header-container">
-            <div>Tweet</div>
-            <div>Model's Predicted Toxicity</div>
-          </div>
           {this.handleErrors()}
+          <div className="outer-header-container">
+            <div className="tweet-header">Tweet</div>
+            <div className="toxic-header">Toxic?</div>
+          </div>
           {keys.map((key, i) => (
             <div className="outer-tweet-container" key={`outer-${i}`}>
-              <div className={i} key={`tweet-${i}-key`}>
+              <div className="tweet-body" key={`tweet-${i}-key`}>
                 {key}
               </div>
-              <div className={i} key={`tweet-${i}-value`}>
+              <div className="model-prediction" key={`tweet-${i}-value`}>
                 {`${this.state.tweetText[key]}`}
               </div>
             </div>

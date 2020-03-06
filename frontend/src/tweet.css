@@ -19,31 +19,40 @@
 /* header */
 .header {
     font-size: 50px;
-    margin-bottom: 20px;
 }
 
 /* form itself */
 .tweet-form {
     border: #b7b7b7 solid 1px;
     display: flex;
+    margin: 20px 0;
 }
 
 /* all form children */
 .tweet-form > * {
     padding: 10px;
+    border: none;
+}
+
+#userInput {
+    width: 250px;
 }
 
 /* form child, @/# box */
 .at-hashtag {
     border-right: 1px #b7b7b7 solid;
+    cursor: pointer;
 }
 
 /* form child, input button */
 .input-btn {
     border-left: 1px #b7b7b7 solid;
+    cursor: pointer;
 }
 
 /* --- END FORM --- */
+
+/* --- LOWER CONTAINER --- */
 .lower-container {
 
 }
@@ -65,3 +74,11 @@
   margin: 0 auto;
 }
 
+.tweet-header .tweet-body {
+    width: 80%;
+}
+
+.toxic-header .model-prediction {
+    width: 20%;
+    text-align: right;
+}
